@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Task < ActiveRecord::Base
+class Task < ApplicationRecord
   validates :title, presence: true, length: { maximum: 50 }
   validates :slug, uniqueness: true
-  validates :slug_not_changed
   before_create :set_slug
+  validate :slug_not_changed
 
   private
 
@@ -21,7 +21,7 @@ class Task < ActiveRecord::Base
 
     def slug_not_changed
       if slug_changed? && self.persisted?
-        errors.add(:slug, t("en.task.immutable"))
+        errors.add(:slug, t("task.slug.immutable"))
       end
     end
 end
