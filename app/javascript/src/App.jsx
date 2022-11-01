@@ -1,5 +1,9 @@
 // previous imports
+import React, { useState, useEffect } from "react";
+
 import { initializeLogger } from "common/logger";
+
+import { setAuthHeaders } from "./apis/axios";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -16,14 +20,7 @@ const App = () => {
     return <h1>Loading...</h1>;
   }
 
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" render={() => <div>Home</div>} />
-        <Route exact path="/about" render={() => <div>About</div>} />
-      </Switch>
-    </Router>
-  );
+  return <>Home</>;
 };
 
 export default App;

@@ -2,7 +2,11 @@
 
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  get "tasks" => "tasks#index"
+  resources :tasks, only: :index
+
+  root "home#index"
+  get "*path", to: "home#index", via: :all
+
   # Defines the root path route ("/")
   # root "articles#index"
 end
