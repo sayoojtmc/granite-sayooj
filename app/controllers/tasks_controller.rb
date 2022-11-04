@@ -13,7 +13,7 @@ class TasksController < ApplicationController
 
   def update
     @task.update!(task_params)
-    respond_with_success(t("successfully_updated"))
+    respond_with_success(t("successfully_updated", entity: "Task"))
   end
 
   def destroy
@@ -24,7 +24,7 @@ class TasksController < ApplicationController
   def create
     task = Task.new(task_params)
     task.save!
-    render status: :ok, json: { notice: t("successfully_created") }
+    render status: :ok, json: { notice: t("successfully_created", entity: "Task") }
   end
 
   private
