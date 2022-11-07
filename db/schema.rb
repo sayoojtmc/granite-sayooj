@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_04_131221) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_07_085744) do
   create_table "tasks", force: :cascade do |t|
     t.text "title", null: false
     t.datetime "created_at", null: false
@@ -28,7 +28,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_04_131221) do
     t.datetime "updated_at", null: false
     t.string "email", null: false
     t.string "password_digest", null: false
+    t.string "authentication_token"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "tasks", "users", column: "assigned_user_id"
 end
