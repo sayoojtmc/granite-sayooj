@@ -12,13 +12,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_07_085744) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_07_104047) do
   create_table "tasks", force: :cascade do |t|
     t.text "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "slug"
     t.integer "assigned_user_id"
+    t.integer "task_owner_id"
     t.index ["slug"], name: "index_tasks_on_slug", unique: true
   end
 
@@ -33,4 +34,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_085744) do
   end
 
   add_foreign_key "tasks", "users", column: "assigned_user_id"
+  add_foreign_key "tasks", "users", column: "task_owner_id", on_delete: :cascade
 end
