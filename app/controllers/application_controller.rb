@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
   protect_from_forgery
   before_action :authenticate_user_using_x_auth_token
   rescue_from StandardError, with: :handle_api_exception
+  rescue_from Pundit::NotAuthorizedError, with: :handle_authorization_error
 
   def handle_api_exception(exception)
     case exception
@@ -67,6 +69,10 @@ class ApplicationController < ActionController::Base
 
   def respond_with_json(json = {}, status = :ok)
     render status: status, json: json
+  end
+
+  def handle_authorization_error
+    respond_with_error(t("authorization.denied"), :forbidden)
   end
 
   private
