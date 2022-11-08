@@ -7,8 +7,9 @@ class Task < ApplicationRecord
   belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
   before_create :set_slug
   has_many :comments, dependent: :destroy
-
+  enum :progress, { pending: "pending", completed: "completed" }, default: :pending
   validate :slug_not_changed
+  RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
 
   private
 
