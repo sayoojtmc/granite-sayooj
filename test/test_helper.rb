@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "minitest/mock"
+
 def enable_test_coverage
   require "simplecov"
   SimpleCov.start do

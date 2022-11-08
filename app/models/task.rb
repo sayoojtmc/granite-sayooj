@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  MAX_TITLE_LENGTH = 50
+  RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
   validates :title, presence: true, length: { maximum: 50 }
   validates :slug, uniqueness: true
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
@@ -11,16 +13,15 @@ class Task < ApplicationRecord
   enum :status, { unstarred: "unstarred", starred: "starred" }, default: :unstarred
 
   validate :slug_not_changed
-  RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
 
   private
 
     def set_slug
       title_slug = title.parameterize
+      regex_pattern = "slug #{Constants::DB_REGEX_OPERATOR} ?"
       latest_task_slug = Task.where(
-        "slug LIKE ? or slug LIKE ?",
-        "#{title_slug}",
-        "#{title_slug}-%"
+        regex_pattern,
+        "#{title_slug}$|#{title_slug}-[0-9]+$"
       ).order("LENGTH(slug) DESC", slug: :desc).first&.slug
       slug_count = 0
       if latest_task_slug.present?
