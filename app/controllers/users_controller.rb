@@ -8,15 +8,14 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.find_by!(email: login_params[:email].downcase)
-    unless @user.authenticate(login_params[:password])
-      respond_with_error("Incorrect credentials, try again.", :unauthorized)
-    end
+    user = User.new(user_params)
+    user.save!
+    respond_with_success(t("successfully_created", entity: "User"))
   end
 
   private
 
-    def login_params
-      params.require(:login).permit(:email, :password)
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end

@@ -42,13 +42,13 @@ const App = () => {
         <Route exact component={ShowTask} path="/tasks/:slug/show" />
         <Route exact component={CreateTask} path="/tasks/create" />
         <Route exact component={Login} path="/login" />
+        <Route exact component={Signup} path="/signup" />
         <PrivateRoute
           component={Dashboard}
           condition={isLoggedIn}
           path="/"
           redirectRoute="/login"
         />
-        <Route exact component={Signup} path="/signup" />
       </Switch>
     </Router>
   );
