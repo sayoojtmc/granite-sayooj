@@ -51,6 +51,11 @@ gem "sidekiq", "< 7"
 
 gem "uglifier"
 
+# PDF generation gem
+gem "wicked_pdf"
+# wicked_pdf uses the following binary
+gem "wkhtmltopdf-binary"
+
 # For periodic sidekiq jobs
 gem "sidekiq-cron"
 

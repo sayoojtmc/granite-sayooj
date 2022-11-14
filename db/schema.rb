@@ -13,10 +13,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_11_10_090420) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
-    t.integer "task_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_comments_on_task_id"
@@ -33,7 +36,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_090420) do
   create_table "preferences", force: :cascade do |t|
     t.integer "notification_delivery_hour"
     t.boolean "should_receive_email", default: true, null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_preferences_on_user_id"
@@ -53,7 +56,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_090420) do
 
   create_table "user_notifications", force: :cascade do |t|
     t.date "last_notification_sent_date", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id", "last_notification_sent_date"],
@@ -68,7 +71,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_090420) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "authentication_token"
-    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "comments", "tasks"

@@ -31,6 +31,7 @@
 
 en:
   generic_error: "Something went wrong. Please try again later."
+  in_progress: "%{action} in progress"
   authorization:
     denied: "Access denied. You are not authorized to perform this action."
   session:
