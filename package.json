@@ -58,7 +58,7 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": "16.5",
+    "node": "16.x",
     "yarn": "1.22.x"
   }
 }
