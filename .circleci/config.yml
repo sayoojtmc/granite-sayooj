@@ -4,6 +4,7 @@ jobs:
     #No. of servers/machines
     parallelism: 1
     docker:
+      - image: cimg/node:16.5
       - image: cimg/ruby:3.0.4-node
       - image: cimg/redis:5.0.14
       - image: cimg/postgres:9.6
