@@ -43,13 +43,13 @@ class TasksControllerTest < ActionDispatch::IntegrationTest
 
   def test_creator_can_update_any_task_fields
     new_title = "#{@task.title}-(updated)"
-    task_params = { task: { title: new_title, assigned_user_id: 1 } }
+    task_params = { task: { title: new_title, assigned_user_id: @assignee.id } }
 
     put task_path(@task.slug), params: task_params, headers: @creator_headers
     assert_response :success
     @task.reload
     assert_equal new_title, @task.title
-    assert_equal 1, @task.assigned_user_id
+    assert_equal @assignee.id, @task.assigned_user_id
   end
 
   def test_should_destroy_task
